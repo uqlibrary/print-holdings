@@ -1,0 +1,34 @@
+{
+  "name": "print-holdings",
+  "version": "1.0.0",
+  "description": "Helper function for print holdings",
+  "main": "generate-year-ranges.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uqlibrary/print-holdings.git"
+  },
+  "keywords": [
+    "google",
+    "sheets",
+    "script",
+    "macro"
+  ],
+  "author": "Cameron Green <cam@uq.edu.au>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/uqlibrary/print-holdings/issues"
+  },
+  "homepage": "https://github.com/uqlibrary/print-holdings#readme",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.11.2",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.13.9",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-firefox-launcher": "^0.1.6",
+    "karma-jasmine": "^0.3.6"
+  }
+}
