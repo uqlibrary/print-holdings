@@ -3,20 +3,24 @@
  */
 
 // globals
-var startYearCol = 3;
-var endYearCol = 4;
-var valuesCol = 5;
+var startDateColHeading = 'StartDate';
+var endDateColHeading = 'EndDate';
+var valuesColHeading = 'LIB. HAS(CHECKIN)';
 
 /**
  * Do any cleaning of the year values required
+ *
+ * @param {String} rawYear
  */
-function cleanYear(year) {
-  return year.substring(1, year.length -1);
+function cleanYear(rawYear) {
+  return rawYear.substring(1, rawYear.length -1);
 }
 
 /**
  * Private function, parses a string containing years into
  * a start and end year according to given business rules
+ *
+ * @param {String} strVal
  */
 function parseYears(strVal) {
   // remove everything after semi colon, appears to be a
@@ -64,6 +68,17 @@ function parseYears(strVal) {
 }
 
 /**
+ * Given a row, return the index of the column with the
+ * given text value
+ *
+ * @param {Array[String]} headings
+ * @param {String} searchText
+ */
+function getColumnIndex(headings, searchText) {
+  return headings.indexOf(searchText) + 1;
+}
+
+/**
  * Top level function, generates year ranges from the necessary
  * cells in the spreadsheet
  */
@@ -73,15 +88,23 @@ function generateYearRanges() {
 
   var end = spreadsheet.getLastRow();
 
+  var firstRow = spreadsheet.getRange(1, 1, 1, spreadsheet.getLastColumn());
+  var firstRowValues = firstRow.getValues();
+  var headings = firstRowValues[0];
+
+  var startDateCol = getColumnIndex(headings, startDateColHeading);
+  var endDateCol = getColumnIndex(headings, endDateColHeading);
+  var valuesCol = getColumnIndex(headings, valuesColHeading);
+
   // skip first row as headings
   for (var i = 2; i <= end; i++) {
-    var row = spreadsheet.getRange(i, valuesCol);
+    var row = spreadsheet.getRange(i, valuesCol, 1);
     var rowValues = row.getValues();
     var values = parseYears('' + rowValues[0][0]);
 
     if (values) {
-      spreadsheet.getRange(i, startYearCol).setValue(values.startYear);
-      spreadsheet.getRange(i, endYearCol).setValue(values.endYear);
+      spreadsheet.getRange(i, startDateCol).setValue(values.startYear);
+      spreadsheet.getRange(i, endDateCol).setValue(values.endYear);
     }
   }
 }
