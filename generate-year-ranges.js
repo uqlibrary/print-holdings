@@ -23,7 +23,7 @@ function parseYears(strVal) {
   // comment delimiter
   var strVal = strVal.split(';')[0].trim();
 
-  var parts = strVal.match(/\([0-9\/-]+\)/g);
+  var parts = strVal.match(/\([^\()]+\)/g);
 
   if (parts === null) {
     // -2015
