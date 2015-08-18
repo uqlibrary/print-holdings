@@ -7,7 +7,6 @@ Google script function to help with parsing the physical journals list
 1. With a logged in google account go to [Google Sheets](https://sheets.google.com)
 1. Open the file picker (folder icon top right)
 1. Upload your spreadsheet
-1. Set the StartDate and EndDate columns, go to **Format** -> **Plain text** 
 1. Click on **Tools** -> **Script Editor** -> **Blank Project**
 1. Click on **Untitled project** and type in "Generate Year Range"
 1. Cut and paste the contents of [generate-year-ranges.js](https://github.com/uqlibrary/print-holdings/blob/master/generate-year-ranges.js) into the main editor tab, overwriting anything that was there before
