@@ -120,7 +120,8 @@ describe('Test parsing of year formats', function() {
 
     var testValues = [
       '(2012)',
-      '2012/13'
+      '2012/13',
+      'Apr,2012/Mar,2013'
     ];
 
     var expected = '2012';
@@ -129,6 +130,5 @@ describe('Test parsing of year formats', function() {
       expect(cleanYear(testValues[i])).toEqual(expected);
     }
   });
-
 
 })
