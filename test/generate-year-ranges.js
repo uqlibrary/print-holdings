@@ -10,7 +10,7 @@ describe('Test parsing of year formats', function() {
     ];
 
     var expected = {
-      startYear: null,
+      startYear: '2012',
       endYear:'2012'
     };
 
@@ -43,8 +43,8 @@ describe('Test parsing of year formats', function() {
     ];
 
     var expected = {
-      startYear:'2012/2013',
-      endYear:'Apr,1999/Mar,2000'
+      startYear:'2012',
+      endYear:'1999'
     };
 
     for (var i = 0, l = testValues.length; i < l; i++) {
@@ -114,5 +114,21 @@ describe('Test parsing of year formats', function() {
       expect(parseYears(testValues[i])).toBeFalsy();
     }
   });
+
+  it('should clean the year from unneeded characters/values', function () {
+    expect(cleanYear).toBeDefined();
+
+    var testValues = [
+      '(2012)',
+      '2012/13'
+    ];
+
+    var expected = '2012';
+
+    for (var i = 0, l = testValues.length; i < l; i++) {
+      expect(cleanYear(testValues[i])).toEqual(expected);
+    }
+  });
+
 
 })

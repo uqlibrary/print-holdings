@@ -13,7 +13,9 @@ var valuesColHeading = 'LIB. HAS(CHECKIN)';
  * @param {String} rawYear
  */
 function cleanYear(rawYear) {
-  return rawYear.substring(1, rawYear.length -1);
+  var returnVal = rawYear.replace(/^\D*/, '');
+  returnVal = returnVal.replace(/\D.*/, '');
+  return returnVal;
 }
 
 /**
@@ -33,7 +35,7 @@ function parseYears(strVal) {
     // -2015
     if (strVal.search(/^-\d+/) !== -1) {
       return {
-        startYear: null,
+        startYear: strVal.substr(1),
         endYear: strVal.substr(1)
       };
     }
