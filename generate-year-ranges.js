@@ -77,7 +77,7 @@ function parseYears(strVal) {
  * @param {String} searchText
  */
 function getColumnIndex(headings, searchText) {
-  return headings.indexOf(searchText) + 1;
+  return headings.indexOf(searchText);
 }
 
 /**
@@ -88,25 +88,23 @@ function generateYearRanges() {
   var spreadsheets = SpreadsheetApp.getActive();
   var spreadsheet = spreadsheets.getSheets()[0];
 
-  var end = spreadsheet.getLastRow();
+  var rowQuery = spreadsheet.getRange(1, 1, spreadsheet.getLastRow(), spreadsheet.getLastColumn());
+  var rows = rowQuery.getValues();
 
-  var firstRow = spreadsheet.getRange(1, 1, 1, spreadsheet.getLastColumn());
-  var firstRowValues = firstRow.getValues();
-  var headings = firstRowValues[0];
+  var headings = rows[0];
 
   var startDateCol = getColumnIndex(headings, startDateColHeading);
   var endDateCol = getColumnIndex(headings, endDateColHeading);
   var valuesCol = getColumnIndex(headings, valuesColHeading);
 
   // skip first row as headings
-  for (var i = 2; i <= end; i++) {
-    var row = spreadsheet.getRange(i, valuesCol, 1);
-    var rowValues = row.getValues();
-    var values = parseYears('' + rowValues[0][0]);
+  for (var i = 1, l = rows.length; i < l; i++) {
+    var values = parseYears('' + rows[i][valuesCol]);
 
     if (values) {
-      spreadsheet.getRange(i, startDateCol).setValue(values.startYear);
-      spreadsheet.getRange(i, endDateCol).setValue(values.endYear);
+      // google sheets work on 1 based counting, not 0
+      spreadsheet.getRange(i + 1, startDateCol + 1).setValue(values.startYear);
+      spreadsheet.getRange(i + 1, endDateCol + 1).setValue(values.endYear);
     }
   }
 }
